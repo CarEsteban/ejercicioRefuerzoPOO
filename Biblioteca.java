@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Biblioteca{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int opcion, opcMenu, cantidad;
-        boolean continuar=true;
+        int opcion, opcMenu, cantidad,num=0;
+        boolean continuar=true,decision,continuarSubMenu=true;
         ArrayList<String> nombresPublicaciones = new ArrayList<String>();
         ArrayList<String> materias = new ArrayList<String>();
         nombresPublicaciones.add("Libro");
@@ -151,8 +151,95 @@ public class Biblioteca{
                         continuar = volverAlMenu(scanner);
                         break;
                     case 2:
-                        // Devolver el título de una publicación por ID
-                        // Implementa esta funcionalidad según tus necesidades
+                        System.out.println("SOLICITUD O DEVOLUCACIÓN DE PUBLICACION POR ID");
+
+                        continuarSubMenu=true;
+                        while(continuarSubMenu){
+                            num+=1;
+                            System.out.println("Creacion del usuario "+num);
+
+                            System.out.println("ID numero : " + num);
+
+                            System.out.println("Ingrese el nombre: ");
+                            String nombre = scanner.nextLine();
+
+                            System.out.println("Ingrese la dirección: ");
+                            String direccion = scanner.nextLine();
+
+                            Cliente cl = new Cliente(num, nombre, direccion);
+
+                            
+                            System.out.println("BIENVENIDO " + cl.getNombre());
+
+                            System.out.println("1) Solicitar un ejemplar");
+                            System.out.println("2) Devolver un ejemplar");
+                            System.out.print("Por favor, seleccione una opción: ");
+
+
+                            opcMenu = scanner.nextInt();
+                            scanner.nextLine();
+                
+                            switch (opcMenu) {
+                                case 1:
+                                    System.out.println("Ingrese el ID EXACTO del ejemplar que desea solicitar: ");
+                                    int idSolicitud = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    System.out.println("Ingrese la fecha de solicitud del ejemplar: ");
+                                    String fechaSolicitud = scanner.nextLine();
+
+                                    System.out.println("Ingrese la fecha a devolver del ejemplar: ");
+                                    String fechaDevolucion = scanner.nextLine();
+
+
+
+                                    for(int i=0; i<publicaciones.size(); i++){
+                                        if(publicaciones.get(i).getId() == idSolicitud){
+                                            Publicacion pubi = publicaciones.get(i);
+                                            decision = cl.solicitarPrestamo(pubi, fechaSolicitud, fechaDevolucion);
+                                            System.out.println(decision);
+                                            if(decision){
+                                                System.out.println(cl.getNombre()+", el libro " + publicaciones.get(i).getTitulo() + " ahora ya se encuentra " + publicaciones.get(i).getEstado());
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                    break;
+                                case 2:
+                                
+                                    System.out.println("Ingrese el ID EXACTO del ejemplar que desea devolver: ");
+                                    int idDevolucion = scanner.nextInt();
+                                    scanner.nextLine();
+
+
+                                    for(int i=0; i<publicaciones.size(); i++){
+                                        if(publicaciones.get(i).getId() == idDevolucion){
+                                            Publicacion pubi = publicaciones.get(i);
+                                            decision = cl.devolverEjemplar(pubi);
+                                            System.out.println(decision);
+                                            if(decision){
+                                                System.out.println(cl.getNombre()+", el libro " + publicaciones.get(i).getTitulo() + " ahora ya se encuentra " + publicaciones.get(i).getEstado());
+                                            }
+                                            break;
+                                        }
+                                    }
+                                
+                                    break;
+                            }
+
+                            continuarSubMenu = volverAlMenu(scanner);
+
+
+                        }
+
+                           
+
+
+
+
+
+
                         continuar = volverAlMenu(scanner);
                         break;
                     case 3:

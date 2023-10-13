@@ -50,7 +50,7 @@ public class Libro extends Publicacion {
 
     @Override
     public String toString(){
-        return super.toString() + "de autor: "+ autor + ", de una editorial: " +editorial+  " y se encuentra " + getEstado();
+        return super.toString() + ", de autor: "+ autor + ", de una editorial: " +editorial+  " y se encuentra " + getEstado();
     }
     
 }

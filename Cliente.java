@@ -3,16 +3,16 @@ import java.util.ArrayList;
 public class Cliente {
     int ID, cantidadPrestamosR, cantidadPrestamosL, cantidadPrestamosA;
     String nombre, direccion, fechaSolicitud, fechaDevolucion;
-    ArrayList<Publicacion> prestamos;
+    ArrayList<Publicacion> prestamos = new ArrayList<Publicacion>();
     
     public Cliente(int iD, String nombre, String direccion) {
-        ID = iD;
+        this.ID = iD;
         this.nombre = nombre;
         this.direccion = direccion;
+        
     }
-
     public boolean solicitarPrestamo(Publicacion publicacion, String fechaSolicitud, String fechaDevolucion){
-        if(prestamos.size()<5){
+        if(this.prestamos.size()<5){
             publicacion.setEstado(false);
             this.fechaDevolucion = fechaDevolucion;
             this.fechaSolicitud = fechaSolicitud;
@@ -30,7 +30,7 @@ public class Cliente {
 
         if(prestamos.size()>0){
             for (int i = 0; i < prestamos.size(); i++) {
-                if (prestamos.get(i).getTitulo().equals(publicacion.getTitulo())) {
+                if (prestamos.get(i).getId() == publicacion.getId()) {
                     prestamos.remove(i);
                     i--; 
                 }
